@@ -26,18 +26,43 @@ function playRound(computerSelection, playerSelection) {
     (computerSelection == "Paper" && playerSelection == "Rock") ||
     (computerSelection == "Scissor" && playerSelection == "Paper")
   ) {
-    return `You Lose! ${computerSelection} beats ${playerSelection}, `;
+    return `You Lose! ${computerSelection} beats ${playerSelection}.`;
   } else if (
     (playerSelection == "Rock" && computerSelection == "Scissor") ||
     (playerSelection == "Paper" && computerSelection == "Rock") ||
     (playerSelection == "Scissor" && computerSelection == "Paper")
   ) {
-    return `You Win! ${playerSelection} beats ${computerSelection}`;
+    return `You Win! ${playerSelection} beats ${computerSelection}.`;
   }
 }
 
-const computerSelection = getComputerChoice();
-const playerSelection = getPlayerChoice();
-console.log(computerSelection);
-console.log(playerSelection);
-console.log(playRound(computerSelection, playerSelection));
+function game() {
+  let computerWin = 0;
+  let playerWin = 0;
+  for (let i = 1; i <= 5; i++) {
+    console.log(`Round ${i}`);
+    const computerSelection = getComputerChoice();
+    const playerSelection = getPlayerChoice();
+    console.log(playRound(computerSelection, playerSelection));
+    if (
+      playRound(computerSelection, playerSelection) ==
+      `You Lose! ${computerSelection} beats ${playerSelection}.`
+    ) {
+      computerWin++;
+    } else if (
+      playRound(computerSelection, playerSelection) ==
+      `You Win! ${playerSelection} beats ${computerSelection}.`
+    ) {
+      playerWin++;
+    }
+  }
+  if (computerWin == playerWin) {
+    console.log("You Draw!")
+  } else if (computerWin > playerWin) {
+    console.log("You Lose!")
+  } else if (computerWin < playerWin) {
+    console.log("You Win!")
+  }
+}
+
+game()

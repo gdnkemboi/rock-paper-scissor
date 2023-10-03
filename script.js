@@ -1,5 +1,6 @@
+const choicesArray = ["Rock", "Paper", "Scissor"];
+
 function getComputerChoice() {
-  let choicesArray = ["Rock", "Paper", "Scissor"];
   const randomNum = Math.floor(Math.random() * 3);
   let computerChoice = choicesArray[randomNum];
   return computerChoice;
@@ -42,7 +43,11 @@ function game() {
   for (let i = 1; i <= 5; i++) {
     console.log(`Round ${i}`);
     const computerSelection = getComputerChoice();
-    const playerSelection = getPlayerChoice();
+    let playerSelection;
+    do {
+      playerSelection = getPlayerChoice();
+    } while (choicesArray.includes(playerSelection) == false);
+
     console.log(playRound(computerSelection, playerSelection));
     if (
       playRound(computerSelection, playerSelection) ==
@@ -57,12 +62,12 @@ function game() {
     }
   }
   if (computerWin == playerWin) {
-    console.log("You Draw!")
+    console.log("You Draw!");
   } else if (computerWin > playerWin) {
-    console.log("You Lose!")
+    console.log("You Lose!");
   } else if (computerWin < playerWin) {
-    console.log("You Win!")
+    console.log("You Win!");
   }
 }
 
-game()
+game();

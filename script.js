@@ -1,8 +1,8 @@
 const choicesArray = ["Rock", "Paper", "Scissor"];
 
-function getComputerChoice() {
-  const randomNum = Math.floor(Math.random() * 3);
-  let computerChoice = choicesArray[randomNum];
+function getComputerChoice(choices) {
+  const randomNum = Math.floor(Math.random() * choices.length);
+  let computerChoice = choices[randomNum];
   return computerChoice;
 }
 
@@ -14,9 +14,16 @@ function capitalizeFirstLetter(string) {
 }
 
 function getPlayerChoice() {
-  let playerChoice = prompt("Rock-Paper-Scissor?");
-  playerChoice = capitalizeFirstLetter(playerChoice).trim();
-  return playerChoice;
+  while (true) {
+    let playerChoice = prompt("Rock-Paper-Scissor?");
+    playerChoice = capitalizeFirstLetter(playerChoice).trim();
+
+    if (choicesArray.includes(playerChoice) == true) {
+      return playerChoice;
+    } else {
+      alert("Please enter a valid choice (Rock, Paper, or Scissor).");
+    }
+  }
 }
 
 function playRound(computerSelection, playerSelection) {
@@ -42,11 +49,8 @@ function game() {
   let playerWin = 0;
   for (let i = 1; i <= 5; i++) {
     console.log(`Round ${i}`);
-    const computerSelection = getComputerChoice();
-    let playerSelection;
-    do {
-      playerSelection = getPlayerChoice();
-    } while (choicesArray.includes(playerSelection) == false);
+    const computerSelection = getComputerChoice(choicesArray);
+    const playerSelection = getPlayerChoice();
 
     console.log(playRound(computerSelection, playerSelection));
     if (

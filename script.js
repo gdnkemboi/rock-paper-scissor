@@ -1,6 +1,11 @@
 const choicesArray = ["Rock", "Paper", "Scissor"];
 const container = document.querySelector("body");
-const resultsDiv = document.createElement("div");
+const result = document.querySelector(".message h3");
+const resultExplanation = document.querySelector(".message p");
+
+// selected option img
+const playerOption = document.querySelector(".points .player img");
+const computerOption = document.querySelector(".points .computer img");
 
 function getComputerChoice(choices) {
   const randomNum = Math.floor(Math.random() * choices.length);
@@ -8,29 +13,56 @@ function getComputerChoice(choices) {
   return computerChoice;
 }
 
-function playRound(computerSelection, playerSelection) {
-  resultsDiv.setAttribute("id", "results");
+function displaySelections(playerSelection, computerSelection) {
+  let rock = "assets/icons/rock.png";
+  let paper = "assets/icons/paper.png";
+  let scissor = "assets/icons/scissors.png";
+
+  if (playerSelection == "Rock") {
+    playerOption.src = rock;
+  } else if (playerSelection == "Paper") {
+    playerOption.src = paper;
+  } else {
+    playerOption.src = scissor;
+  }
+
+  if (computerSelection == "Rock") {
+    computerOption.src = rock;
+  } else if (computerSelection == "Paper") {
+    computerOption.src = paper;
+  } else {
+    computerOption.src = scissor;
+  }
+}
+
+function playRound(playerSelection, computerSelection) {
+  displaySelections(playerSelection, computerSelection);
+  let winner = "";
+
   if (computerSelection == playerSelection) {
-    resultsDiv.textContent = "You Draw!";
+    result.textContent = "It's a tie!";
+    resultExplanation.textContent = `${playerSelection} ties with ${computerSelection}`;
   } else if (
     (computerSelection == "Rock" && playerSelection == "Scissor") ||
     (computerSelection == "Paper" && playerSelection == "Rock") ||
     (computerSelection == "Scissor" && playerSelection == "Paper")
   ) {
-    resultsDiv.textContent = `You Lose! ${computerSelection} beats ${playerSelection}.`;
+    result.textContent = "You Lost!";
+    resultExplanation.textContent = `${computerSelection} beats ${playerSelection}.`;
+
+    winner = "Computer";
   } else if (
     (playerSelection == "Rock" && computerSelection == "Scissor") ||
     (playerSelection == "Paper" && computerSelection == "Rock") ||
     (playerSelection == "Scissor" && computerSelection == "Paper")
   ) {
-    resultsDiv.textContent = `You Win! ${playerSelection} beats ${computerSelection}.`;
+    result.textContent = "You Won!";
+    resultExplanation.textContent = `${playerSelection} beats ${computerSelection}.`;
+
+    winner = "Player";
   }
-  let div = document.querySelector("#results");
-  if (div) {
-    div.remove();
-  }
-  container.appendChild(resultsDiv);
-  return resultsDiv;
+
+  return winner;
 }
 
 let playerPoints = 0;
@@ -40,13 +72,14 @@ let pointsDiv = document.querySelector(".points");
 function restartGame() {
   playerPoints = 0;
   computerPoints = 0;
-  pointsDiv.querySelector(
-    "#playerPoints"
-  ).textContent = `Player: ${playerPoints}`;
-  pointsDiv.querySelector(
-    "#computerPoints"
-  ).textContent = `Computer: ${computerPoints}`;
-  document.querySelector("#results").remove();
+  pointsDiv.querySelector("#playerPoints").textContent = "Player: 0";
+  pointsDiv.querySelector("#computerPoints").textContent = "Computer: 0";
+
+  result.textContent = "Choose your weapon";
+  resultExplanation.textContent = "First to score five points wins the game";
+
+  playerOption.src = "assets/icons/question.png";
+  computerOption.src = "assets/icons/question.png";
 }
 
 function displayPlayAgainPopup(message) {
@@ -58,35 +91,35 @@ function displayPlayAgainPopup(message) {
 
 function game(playerSelection, computerSelection) {
   let winningScore = 5;
-  if (playerPoints < winningScore && computerPoints < winningScore) {
-    playRound(playerSelection, computerSelection);
-    if (resultsDiv.textContent.startsWith("You Win!")) {
-      playerPoints += 1;
-      pointsDiv.querySelector(
-        "#playerPoints"
-      ).textContent = `Player: ${playerPoints}`;
-      if (playerPoints === winningScore) {
-        setTimeout(() => {
-          do {
-            displayPlayAgainPopup("You Win!");
-          } while (playerPoints === winningScore);
-        }, 0);
-      }
-    } else if (resultsDiv.textContent.startsWith("You Lose!")) {
-      computerPoints += 1;
-      pointsDiv.querySelector(
-        "#computerPoints"
-      ).textContent = `Computer: ${computerPoints}`;
-      if (computerPoints === winningScore) {
-        setTimeout(() => {
-          do {
-            displayPlayAgainPopup("You Lose!");
-          } while (computerPoints === winningScore);
-        }, 0);
-      }
-    }
-  } else {
+
+  if (playerPoints > winningScore && computerPoints > winningScore) {
     restartGame();
+  }
+
+  let winner = playRound(playerSelection, computerSelection);
+
+  if (winner == "Player") {
+    playerPoints += 1;
+    pointsDiv.querySelector(
+      "#playerPoints"
+    ).textContent = `Player: ${playerPoints}`;
+
+    if (playerPoints === winningScore) {
+      setTimeout(() => {
+        displayPlayAgainPopup("You Won!");
+      }, 60);
+    }
+  } else if (winner == "Computer") {
+    computerPoints += 1;
+    pointsDiv.querySelector(
+      "#computerPoints"
+    ).textContent = `Computer: ${computerPoints}`;
+
+    if (computerPoints === winningScore) {
+      setTimeout(() => {
+        displayPlayAgainPopup("You Lost!");
+      }, 60);
+    }
   }
 }
 

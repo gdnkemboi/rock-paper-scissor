@@ -2,19 +2,51 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <link
+      rel="shortcut icon"
+      href="/assets/icons/rock-paper-scissors.png"
+      type="image/x-icon"
+    />
+    <link rel="stylesheet" href="style.css" />
     <title>Rock Paper Scissor</title>
   </head>
   <body>
-    <h1>Rock-Paper-Scissor</h1>
-    <p>Fisrt to reach five points wins the game</p>
-    <button id="rock">Rock</button>
-    <button id="paper">Paper</button>
-    <button id="scissor">Scissor</button>
-    <div class="points">
-      <div id="playerPoints">Player: 0</div>
-      <div id="computerPoints">Computer: 0</div>
+    <div class="header">
+      <h1 class="title">Rock-Paper-Scissor</h1>
     </div>
+
+    <div class="main">
+      <div class="message">
+        <h3>Choose your weapon</h3>
+        <p>First to score five points wins the game</p>
+      </div>
+
+      <div class="points">
+        <div class="player">
+          <img src="assets/icons/question.png" alt="" />
+          <div id="playerPoints">Player: 0</div>
+        </div>
+        <div class="computer">
+          <img src="assets/icons/question.png" alt="" />
+          <div id="computerPoints">Computer: 0</div>
+        </div>
+      </div>
+
+      <div class="options">
+        <div>
+          <img id="rock" src="assets/icons/rock.png" alt="" />
+        </div>
+        <div>
+          <img id="paper" src="assets/icons/paper.png" alt="" />
+        </div>
+
+        <div><img id="scissor" src="assets/icons/scissors.png" alt="" /></div>
+      </div>
+    </div>
+
+    <footer>Copyright &copy; Gideon Kemboi 2025</footer>
+
     <script src="script.js"></script>
   </body>
 </html>

@@ -1,0 +1,101 @@
+@import url("https://fonts.googleapis.com/css2?family=Oi&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
+
+* {
+  box-sizing: border-box;
+  font-family: "Roboto", serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #e1b382;
+}
+
+img {
+  width: 80px;
+  height: 80px;
+}
+
+.header {
+  background-color: #2d545e;
+  color: white;
+  width: 100%;
+  text-align: center;
+  padding: 10px 0;
+}
+
+.title {
+  font-family: "Oi", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.message {
+  text-align: center;
+}
+
+.message h3 {
+  font-weight: 500;
+  font-size: 1.5rem;
+}
+
+.message p {
+  font-size: 1.2rem;
+}
+
+.points {
+  display: flex;
+  gap: 20px;
+}
+
+.points > div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+.points > div div {
+  font-size: 1.2rem;
+}
+
+.options {
+  display: flex;
+  gap: 20px;
+}
+
+.options div {
+  padding: 20px;
+  border-radius: 20px;
+  background-color: #c89666;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.options div:hover {
+  transform: scale(1.1);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+footer {
+  background-color: #12343b;
+  color: white;
+  width: 100%;
+  text-align: center;
+  padding: 20px 0;
+}
